@@ -1,18 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using agsXMPP;
 using agsXMPP.Collections;
 using agsXMPP.protocol.client;
-using agsXMPP.protocol.sasl;
-using agsXMPP.sasl;
 using Newtonsoft.Json;
-using Mechanism = agsXMPP.protocol.sasl.Mechanism;
 
 namespace facebookXMPP
 {
