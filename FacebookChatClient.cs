@@ -84,18 +84,17 @@ namespace facebookXMPP
             var user = GetUser(pres.From.User);
             user.Jid = pres.From.Bare;
 
-            if (pres.Type == PresenceType.available && !Contacts.ContainsKey(pres.From.Bare))
+            if (pres.Type == PresenceType.available && !_contacts.ContainsKey(pres.From.Bare))
             {
-                Contacts.Add(pres.From.Bare, user);
+                _contacts.Add(pres.From.Bare, user);
                 _xmppClient.MessageGrabber.Add(new Jid(pres.From.Bare), new BareJidComparer(), MessageReceived, null);
                 if (OnContactAdded != null) OnContactAdded(user);
             }
-            else if (pres.Type == PresenceType.unavailable && Contacts.ContainsKey(pres.From.Bare))
+            else if (pres.Type == PresenceType.unavailable && _contacts.ContainsKey(pres.From.Bare))
             {
                 _xmppClient.MessageGrabber.Remove(new Jid(pres.From.Bare));
-                Contacts.Remove(pres.From.Bare);
+                _contacts.Remove(pres.From.Bare);
 
-                // TODO Contacts.remove after maybe?
                 if (OnContactRemoved != null) OnContactRemoved(GetUser(pres.From.User));
             }
         }
@@ -113,12 +112,12 @@ namespace facebookXMPP
         {
             if(String.IsNullOrEmpty(msg.Body) && OnUserIsTyping != null)
             {
-                Contacts[msg.From.Bare].IsTyping = !Contacts[msg.From.Bare].IsTyping;
-                OnUserIsTyping(Contacts[msg.From.Bare]);
+                _contacts[msg.From.Bare].IsTyping = !_contacts[msg.From.Bare].IsTyping;
+                OnUserIsTyping(_contacts[msg.From.Bare]);
             }
             else if(OnMessageReceived != null && !String.IsNullOrEmpty(msg.Body))
             {
-                var from = Contacts.First(x => x.Key == msg.From.Bare).Value;
+                var from = _contacts.First(x => x.Key == msg.From.Bare).Value;
                 from.IsTyping = false;
                 OnMessageReceived(msg, from);
             }
