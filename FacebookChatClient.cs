@@ -79,7 +79,7 @@ namespace facebookXMPP
             OnLogout();
         }
 
-        private void UpdateUserList(object sender, Presence pres)
+        private void UpdateContactList(object sender, Presence pres)
         {
             var user = GetUser(pres.From.User);
             user.Jid = pres.From.Bare;
