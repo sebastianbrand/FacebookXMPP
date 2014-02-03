@@ -50,7 +50,7 @@ namespace facebookXMPP
                         if (OnConnectionStateChanged != null) OnConnectionStateChanged(state.ToString());
                     };
                     _xmppClient.UseStartTLS = true;
-                    _xmppClient.OnPresence += UpdateUserList;
+                    _xmppClient.OnPresence += UpdateContactList;
                     _xmppClient.OnLogin += OnLogin;
                     _xmppClient.OnAuthError += (sender, element) =>
                     {
@@ -129,7 +129,7 @@ namespace facebookXMPP
             if (OnLoginResult != null)
                 OnLoginResult(true);
 
-            _xmppClient.OnPresence += UpdateUserList;
+            _xmppClient.OnPresence += UpdateContactList;
 
             // Changing presence to online
             var presence = new Presence(ShowType.chat, "Online") {Type = PresenceType.available};
